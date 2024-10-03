@@ -45,13 +45,90 @@
             opacity: 1;
         }
 
-        canvas {
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 50px;
+        }
+
+        .cake {
+            width: 80%;
+            height: 80%;
+            left: 10%;
+            bottom: 15%;
+        }
+
+        .tier {
+            left: 10%;
+            width: 80%;
+            height: 50px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .filling {
+            height: 10px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            top: 50%;
+        }
+
+        .icing-group {
+            width: 100%;
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .icing {
+            border-radius: 0 0 20px 20px;
+            width: 40px;
+            height: 20px;
+            background-color: #f4f5fb;
             position: absolute;
-            top: 0;
-            left: 0;
+        }
+
+        .candles {
+            width: 40%;
+            left: 30%;
+            height: 30px;
+            bottom: 135px;
+            position: relative;
+        }
+
+        .candle {
+            background-color: #f2abe7;
+            left: 27px;
+            width: 10px;
+            height: 25px;
+            position: relative;
+        }
+
+        .flame {
+            width: 15px;
+            height: 15px;
+            bottom: 30px;
+            left: -3px;
+            position: absolute;
+        }
+
+        .flame-in {
             width: 100%;
             height: 100%;
-            z-index: 0;
+            background-color: #fec31e;
+            border-radius: 0 50% 50%;
+            transform: rotate(45deg);
+            animation: flame 2s linear infinite;
+        }
+
+        @keyframes flame {
+            50% {
+                transform: scale(0.8) rotate(45deg);
+            }
         }
 
         .card {
@@ -158,26 +235,91 @@
             text-align: right;
         }
 
-        #cake {
-            display: block;
-            margin: 20px auto;
-            width: 200px;
-            height: auto;
-            z-index: 1;
+        .confetti {
+            position: absolute;
+            z-index: 999;
         }
 
+        .confetti .rotate {
+            animation: driftRotate 1s infinite both ease-in-out;
+            width: 100%;
+            height: 100%;
+        }
+
+        .confetti .askew {
+            width: 100%;
+            height: 100%;
+            animation: drift 1s infinite alternate both ease-in-out;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: skewY(10deg) translate3d(-250%, 0, 0);
+            }
+            100% {
+                transform: skewY(-10deg) translate3d(250%, 0, 0);
+            }
+        }
+
+        @keyframes driftRotate {
+            0% {
+                transform: rotateX(0);
+            }
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
     </style>
 </head>
 <body>
     <h1 class="show">Happy Birthday!</h1>
-    <canvas id="canvas"></canvas>
-    <svg id="cake" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="80" fill="#f4a261" />
-        <circle cx="100" cy="60" r="10" fill="#ffffff" />
-        <rect x="90" y="10" width="20" height="50" fill="#ffffff" />
-        <rect x="95" y="0" width="10" height="10" fill="#ff6b6b" />
-        <text x="50%" y="180" text-anchor="middle" font-family="'Indie Flower', cursive" font-size="20" fill="#ffffff">Happy Birthday!</text>
-    </svg>
+    <div class="container">
+        <div class="cake">
+            <div class="tier tier-1">
+                <div class="filling"></div>
+                <div class="icing-group">
+                    <div class="icing" style="left: -20px;"></div>
+                    <div class="icing" style="left: 10px;"></div>
+                    <div class="icing" style="left: 40px;"></div>
+                    <div class="icing" style="left: 70px;"></div>
+                    <div class="icing" style="left: 100px;"></div>
+                    <div class="icing" style="left: 130px;"></div>
+                    <div class="icing" style="left: 160px;"></div>
+                    <div class="icing" style="left: 190px;"></div>
+                    <div class="icing" style="left: 220px;"></div>
+                </div>
+            </div>
+            <div class="tier tier-2">
+                <div class="filling"></div>
+                <div class="icing-group">
+                    <div class="icing" style="left: -20px;"></div>
+                    <div class="icing" style="left: 10px;"></div>
+                    <div class="icing" style="left: 40px;"></div>
+                    <div class="icing" style="left: 70px;"></div>
+                    <div class="icing" style="left: 100px;"></div>
+                    <div class="icing" style="left: 130px;"></div>
+                    <div class="icing" style="left: 160px;"></div>
+                </div>
+            </div>
+            <div class="tier tier-3">
+                <div class="filling"></div>
+                <div class="icing-group">
+                    <div class="icing" style="left: -20px;"></div>
+                    <div class="icing" style="left: 10px;"></div>
+                    <div class="icing" style="left: 40px;"></div>
+                    <div class="icing" style="left: 70px;"></div>
+                    <div class="icing" style="left: 100px;"></div>
+                </div>
+            </div>
+            <div class="candles">
+                <div class="candle">
+                    <div class="flame">
+                        <div class="flame-in"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card">
         <div class="imgBox">
             <div class="bark"></div>
@@ -199,109 +341,51 @@
         </div>
     </div>
     <script>
-        let W = window.innerWidth;
-        let H = window.innerHeight;
-        const canvas = document.getElementById("canvas");
-        const context = canvas.getContext("2d");
-        const maxConfettis = 150;
-        const particles = [];
-
-        const possibleColors = [
-            "DodgerBlue",
-            "OliveDrab",
-            "Gold",
-            "Pink",
-            "SlateBlue",
-            "LightBlue",
-            "Gold",
-            "Violet",
-            "PaleGreen",
-            "SteelBlue",
-            "SandyBrown",
-            "Chocolate",
-            "Crimson"
+        const confettiShower = [];
+        const numConfettis = 200;
+        const container = document.body;
+        const colors = [
+            "#f2abe7",
+            "#9fa3ec",
+            "#86d2e1 ",
+            "#fec31e "
         ];
 
-        function randomFromTo(from, to) {
-            return Math.floor(Math.random() * (to - from + 1) + from);
-        }
-
-        function confettiParticle() {
-            this.x = Math.random() * W; // x
-            this.y = Math.random() * H - H; // y
-            this.r = randomFromTo(11, 33); // radius
-            this.d = Math.random() * maxConfettis + 11;
-            this.color =
-                possibleColors[Math.floor(Math.random() * possibleColors.length)];
-            this.tilt = Math.floor(Math.random() * 33) - 11;
-            this.tiltAngleIncremental = Math.random() * 0.07 + 0.05;
-            this.tiltAngle = 0;
-
-            this.draw = function() {
-                context.beginPath();
-                context.lineWidth = this.r / 2;
-                context.strokeStyle = this.color;
-                context.moveTo(this.x + this.tilt + this.r / 3, this.y);
-                context.lineTo(this.x + this.tilt, this.y + this.tilt + this.r / 5);
-                return context.stroke();
-            };
-        }
-
-        function Draw() {
-            const results = [];
-
-            // Magical recursive functional love
-            requestAnimationFrame(Draw);
-
-            context.clearRect(0, 0, W, window.innerHeight);
-
-            for (var i = 0; i < maxConfettis; i++) {
-                results.push(particles[i].draw());
+        class Confetti {
+            constructor(x, y, w, h, c) {
+                this.w = Math.floor(Math.random() * 10 + 5);
+                this.h = this.w * 1;
+                this.x = Math.floor(Math.random() * 100);
+                this.y = Math.floor(Math.random() * 100);
+                this.c = colors[Math.floor(Math.random() * colors.length)];
             }
-
-            let particle = {};
-            let remainingFlakes = 0;
-            for (var i = 0; i < maxConfettis; i++) {
-                particle = particles[i];
-
-                particle.tiltAngle += particle.tiltAngleIncremental;
-                particle.y += (Math.cos(particle.d) + 3 + particle.r / 2) / 2;
-                particle.tilt = Math.sin(particle.tiltAngle - i / 3) * 15;
-
-                if (particle.y <= H) remainingFlakes++;
-
-                // If a confetti has fluttered out of view,
-                // bring it back to above the viewport and let if re-fall.
-                if (particle.x > W + 30 || particle.x < -30 || particle.y > H) {
-                    particle.x = Math.random() * W;
-                    particle.y = -30;
-                    particle.tilt = Math.floor(Math.random() * 10) - 20;
-                }
+            create() {
+                var newConfetti = '<div class="confetti" style="bottom:' + this.y + '%; left:' + this.x + '%;width:' +
+                    this.w + 'px; height:' + this.h + 'px;"><div class="rotate"><div class="askew" style="background-color:' + this.c + '"></div></div></div>';
+                container.innerHTML += newConfetti;
             }
+        };
 
-            return results;
+        function animateConfetti() {
+            for (var i = 1; i <= numConfettis; i++) {
+                var confetti = new Confetti();
+                confetti.create();
+            }
+            var confettis = document.querySelectorAll('.confetti');
+            for (var i = 0; i < confettis.length; i++) {
+                var opacity = Math.random() + 0.1;
+                var animated = confettis[i].animate([
+                    { transform: 'translate3d(0,0,0)', opacity: opacity },
+                    { transform: 'translate3d(20vw,100vh,0)', opacity: 1 }
+                ], {
+                    duration: Math.random() * 3000 + 3000,
+                    iterations: Infinity,
+                    delay: -(Math.random() * 5000)
+                });
+                confettiShower.push(animated);
+            }
         }
-
-        window.addEventListener(
-            "resize",
-            function() {
-                W = window.innerWidth;
-                H = window.innerHeight;
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            },
-            false
-        );
-
-        // Push new confetti objects to `particles[]`
-        for (var i = 0; i < maxConfettis; i++) {
-            particles.push(new confettiParticle());
-        }
-
-        // Initialize
-        canvas.width = W;
-        canvas.height = H;
-        Draw();
+        animateConfetti();
     </script>
 </body>
 </html>
