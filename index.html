@@ -61,6 +61,7 @@
             -webkit-background-clip: text;
             color: transparent;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            transition: opacity 0.8s ease;
         }
 
         .spoiler:hover::before {
@@ -79,12 +80,96 @@
             height: 100%;
         }
 
+        .velas {
+            background: #ffffff;
+            border-radius: 10px;
+            position: absolute;
+            top: 228px;
+            left: 50%;
+            margin-left: -2.4px;
+            margin-top: -8.33333333px;
+            width: 5px;
+            height: 35px;
+            transform: translateY(-300px);
+            backface-visibility: hidden;
+            animation: in 500ms 6s ease-out forwards;
+        }
+        .velas:after,
+        .velas:before {
+            background: rgba(255, 0, 0, 0.4);
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2.22222222px;
+        }
+        .velas:after {
+            top: 25%;
+            left: 0;
+        }
+        .velas:before {
+            top: 45%;
+            left: 0;
+        }
+
+        .fuego {
+            border-radius: 100%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            margin-left: -2.6px;
+            width: 6.66666667px;
+            height: 18px;
+        }
+        .fuego:nth-child(1) {
+            animation: fuego 2s 6.5s infinite;
+        }
+        .fuego:nth-child(2) {
+            animation: fuego 1.5s 6.5s infinite;
+        }
+        .fuego:nth-child(3) {
+            animation: fuego 1s 6.5s infinite;
+        }
+        .fuego:nth-child(4) {
+            animation: fuego 0.5s 6.5s infinite;
+        }
+        .fuego:nth-child(5) {
+            animation: fuego 0.2s 6.5s infinite;
+        }
+
+        @keyframes fuego {
+            0%, 100% {
+                background: rgba(254, 248, 97, 0.5);
+                box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                background: rgba(255, 50, 0, 0.1);
+                box-shadow: 0 0 40px 20px rgba(248, 233, 209, 0.2);
+                transform: translateY(-20px) scale(0);
+            }
+        }
+
+        @keyframes in {
+            to {
+                transform: translateY(0);
+            }
+        }
+
         @media only screen and (max-width: 600px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             .spoiler {
                 font-size: 1.5rem;
+            }
+        }
+
+        @media only screen and (min-width: 601px) and (max-width: 1200px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            .spoiler {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -93,6 +178,29 @@
     <div class="spoiler"></div>
     <h1>Happy Birthday!</h1>
     <canvas id="canvas"></canvas>
+    <div class="velas">
+        <div class="fuego"></div>
+        <div class="fuego"></div>
+        <div class="fuego"></div>
+        <div class="fuego"></div>
+        <div class="fuego"></div>
+    </div>
+    <svg id="cake" version="1.1" x="0px" y="0px" width="200px" height="500px" viewBox="0 0 200 500" enable-background="new 0 0 200 500" xml:space="preserve">
+        <path fill="#a88679" d="M173.667-13.94c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
+            c44.697,0,96.586,0,147.334,0C177.667-29.942,177.668-13.94,173.667-13.94z">
+            <animate id="bizcocho_3" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1" begin="relleno_2.end" dur="0.3s" fill="freeze" values="
+                              M173.667-13.94c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
+            c44.697,0,96.586,0,147.334,0C177.667-29.942,177.668-13.94,173.667-13.94z
+                              ;
+                              M173.667,411.567c-47.995,12.408-102.955,12.561-147.334,0
+            c-3.848-1.089-0.189-16.089,3.661-15.002c44.836,12.66,90.519,12.753,139.427,0.07
+            C173.293,395.631,177.541,410.566,173.667,411.567z
+                              ;
+                              M173.667,427.569c-49.795,0-101.101,0-147.334,0c-3.999,0-4-16.002,0-16.002
+            c46.385,0,97.539,0,147.334,0C177.668,411.567,177.667,427.569,173.667,427.569z
+                              " />
+        </path>
+    </svg>
     <script>
         let W = window.innerWidth;
         let H = window.innerHeight;
