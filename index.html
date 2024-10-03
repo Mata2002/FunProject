@@ -36,17 +36,12 @@
                          -3px -3px 4px rgba(255, 255, 255, 0.3),
                          1px 1px 8px #ff6b6b,
                          5px 5px 15px rgba(0, 0, 0, 0.4);
-            opacity: 0;
             transition: opacity 1s ease;
         }
 
-        
-
-        
-
-        
-
-        
+        h1.show {
+            opacity: 1;
+        }
 
         canvas {
             position: absolute;
@@ -172,7 +167,7 @@
     </style>
 </head>
 <body>
-        <h1>Happy Birthday!</h1>
+    <h1 class="show">Happy Birthday!</h1>
     <canvas id="canvas"></canvas>
     <svg id="cake" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
         <circle cx="100" cy="100" r="80" fill="#f4a261" />
@@ -190,4 +185,47 @@
             <h4 class="color1">You're not a Fossil! (YET)</h4>
             <h4 class="color2 margin">(HAPPY BIRTHDAY)</h4>
             <p>Dear Dad,</p>
-            <p>Let's see.. .
+            <p>Let's see.. .</p>
+            <p>You’re never around, you</p>
+            <p>hate the music I’m into, you</p>
+            <p>practically despise the movies I</p>
+            <p>like, and yet somehow you still</p>
+            <p>manage to be the best dad every year.</p>
+            <p>How do you do that? :)</p>
+            <p class="text-right">Happy Birthday, papa!</p>
+            <p class="text-right">♥Sarah</p>
+        </div>
+    </div>
+    <script>
+        let W = window.innerWidth;
+        let H = window.innerHeight;
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        const maxConfettis = 150;
+        const particles = [];
+
+        const possibleColors = [
+            "DodgerBlue",
+            "OliveDrab",
+            "Gold",
+            "Pink",
+            "SlateBlue",
+            "LightBlue",
+            "Gold",
+            "Violet",
+            "PaleGreen",
+            "SteelBlue",
+            "SandyBrown",
+            "Chocolate",
+            "Crimson"
+        ];
+
+        function randomFromTo(from, to) {
+            return Math.floor(Math.random() * (to - from + 1) + from);
+        }
+
+        function confettiParticle() {
+            this.x = Math.random() * W; // x
+            this.y = Math.random() * H - H; // y
+            this.r = randomFromTo(11, 33); // radius
+            this.d = Math.random
