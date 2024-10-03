@@ -8,10 +8,14 @@
         body {
             margin: 0;
             height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fad0c4, #fad0c4, #ffdde1);
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fad0c4, #ffdde1);
             background-size: 400% 400%;
             animation: gradientBG 10s ease infinite;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         @keyframes gradientBG {
@@ -21,29 +25,46 @@
         }
 
         h1 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 4rem;
             font-family: 'Courier New', Courier, monospace;
             color: white;
             text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3),
                          -3px -3px 4px rgba(255, 255, 255, 0.3),
-                         1px 1px 8px #ff6b6b;
-            opacity: 0.5;
-            transition: all 0.5s;
+                         1px 1px 8px #ff6b6b,
+                         5px 5px 15px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 1s ease;
         }
 
         .spoiler {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50%;
-            height: 30%;
+            font-size: 2rem;
+            color: transparent;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .spoiler::before {
+            content: "Hover to reveal the surprise!";
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .spoiler:hover::before {
+            opacity: 0;
         }
 
         .spoiler:hover + h1 {
@@ -56,6 +77,15 @@
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .spoiler {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
