@@ -1,297 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
-        @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghost Animation</title>
+  <style>
+    /* Variables */
+    :root {
+      --dark-bg: #292B25;
+      --shadow: #1B1D18;
+      --ghost-white: #F0EFDC;
+      --face-dark: #271917;
+      --face-pink: #F5C1B6;
+      --ghost-width: 80px;
+      --ghost-height: 115px;
+      --star-blue: #83D0BC;
+      --star-yellow: #FFD186;
+      --star-orange: #DF814D;
+      --ghost-exit-speed: 800ms;
+      --ghost-entrance-speed: 2000ms;
+      --waving-speed: 400ms;
+      --blink-speed: 50ms;
+      --mouth-speed: 150ms;
+      --shadow-disappear-speed: 400ms;
+      --shadow-appear-speed: 800ms;
+      --star-entrance-speed: 1500ms;
+      --star-exit-speed: 400ms;
+      --star-exit-delay: 200ms;
+      --star-entrance-delay: 200ms;
+    }
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fad0c4, #ffdde1);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            font-family: 'Indie Flower', cursive !important;
-        }
+    /* Keyframes */
+    @keyframes hover { 0% { top: 0; } 100% { top: 8px; } }
+    @keyframes star-entrance { 0% { transform: rotate(-735deg) scale(0, 0); } 100% { transform: rotate(0) scale(1, 1); } }
+    @keyframes star-exit { 0% { transform: rotate(0) scale(1, 1); } 100% { transform: rotate(360deg) scale(0, 0); } }
+    @keyframes waving { 0% { transform: rotate(-45deg); } 50% { transform: rotate(-55deg); } 100% { transform: rotate(-45deg); } }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    /* Styling */
+    body { height: 100vh; display: flex; justify-content: center; align-items: center; background-color: var(--dark-bg); }
+    .scene-container { position: relative; width: 140px; height: 160px; outline: none; }
+    .ghost-container { position: relative; width: var(--ghost-width); height: calc(var(--ghost-height) + 25px); overflow: hidden; }
+    .ghost { transition: transform var(--ghost-entrance-speed) ease-out; animation: hover 600ms ease-in-out infinite alternate; }
 
-        h1 {
-            font-size: 4rem;
-            font-family: 'Courier New', Courier, monospace;
-            color: white;
-            text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3),
-                         -3px -3px 4px rgba(255, 255, 255, 0.3),
-                         1px 1px 8px #ff6b6b,
-                         5px 5px 15px rgba(0, 0, 0, 0.4);
-            z-index: 1;
-            margin-bottom: 50px;
-            transition: opacity 1s ease;
-        }
-
-        h1.show {
-            opacity: 1;
-        }
-
-        .container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 300px;
-            height: 300px;
-            margin-bottom: 50px;
-        }
-
-        .cake {
-            width: 100%;
-            position: relative;
-            height: 250px;
-        }
-
-        .tier {
-            width: 100%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-        }
-
-        .tier-1 {
-            height: 70px;
-            bottom: 0;
-            background-color: #f2abe7;
-        }
-
-        .tier-2 {
-            width: 70%;
-            height: 60px;
-            bottom: 70px;
-            background-color: #9fa3ec;
-        }
-
-        .tier-3 {
-            width: 50%;
-            height: 50px;
-            bottom: 130px;
-            background-color: #86d2e1;
-        }
-
-        .filling {
-            height: 10px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            position: absolute;
-            bottom: -10px;
-        }
-
-        .icing-group {
-            width: 100%;
-            height: 20px;
-            display: flex;
-            justify-content: space-around;
-            position: absolute;
-            top: -20px;
-        }
-
-        .icing {
-            border-radius: 0 0 20px 20px;
-            width: 20%;
-            height: 20px;
-            background-color: #f4f5fb;
-        }
-
-        .candles {
-            width: 60%;
-            height: 30px;
-            bottom: 180px;
-            left: 20%;
-            position: absolute;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .candle {
-            background-color: #f2abe7;
-            width: 10px;
-            height: 25px;
-            position: relative;
-        }
-
-        .flame {
-            width: 15px;
-            height: 15px;
-            bottom: 30px;
-            left: -3px;
-            position: absolute;
-        }
-
-        .flame-in {
-            width: 100%;
-            height: 100%;
-            background-color: #fec31e;
-            border-radius: 0 50% 50%;
-            transform: rotate(45deg);
-            animation: flame 2s linear infinite;
-        }
-
-        @keyframes flame {
-            50% {
-                transform: scale(0.8) rotate(45deg);
-            }
-        }
-
-        .card {
-            color: #013243; /* SHERPA BLUE */
-            position: relative;
-            width: 300px;
-            height: 400px;
-            background: #e0e1dc;
-            transform-style: preserve-3d;
-            box-shadow: inset 300px 0 50px rgba(0,0,0,.5), 20px 0 60px rgba(0,0,0,.5);
-            transition: 1s;
-            z-index: 2;
-        }
-
-        .card:hover {
-            transform: perspective(2000px) rotate(15deg) scale(1.2);
-            box-shadow: inset 20px 0 50px rgba(0,0,0,.5), 0 10px 100px rgba(0,0,0,.5);
-        }
-
-        .card:before {
-            content:'';
-            position: absolute;
-            top: -5px;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: #BAC1BA;
-            transform-origin: bottom;
-            transform: skewX(-45deg);
-        }
-
-        .card:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -5px;
-            width: 5px;
-            height: 100%;
-            background: #92A29C;
-            transform-origin: left;
-            transform: skewY(-45deg);
-        }
-
-        .card .imgBox {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-origin: left;
-            transition: .7s;
-        }
-
-        .card .bark {
-            position: absolute;
-            background: #e0e1dc;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: .7s;
-        }
-
-        .card .imgBox img {
-            min-width: 250px;
-            max-height: 400px;
-        }
-
-        .card:hover .imgBox {
-            transform: rotateY(-135deg);
-        }
-
-        .card:hover .bark {
-            opacity: 1;
-            transition: .6s;
-            box-shadow: 300px 200px 100px rgba(0, 0, 0, .4) inset;
-        }
-
-        .card .details {
-            position: absolute;
-            top: 0;
-            left: 0;
-            box-sizing: border-box;
-            padding: 0 0 0 10px;
-            z-index: -1;
-            margin-top: 70px;
-        }
-
-        .card .details p {
-            font-size: 15px;
-            line-height: 5px;
-            transform: rotate(-10deg);
-            padding: 0 0 0 20px;
-        }
-
-        .card .details h4 {
-            text-align: center;
-            font-size: 26px;
-            line-height: 1px;
-            font-family: 'Amatic SC', cursive !important;
-        }
-
-        .color1 { color: #1BBC9B; } /* MOUNTAIN MEADOW */
-        .color2 { color: #C0392B; } /* TALL POPPY */
-
-        .text-right {
-            text-align: right;
-        }
-
-        .confetti {
-            position: absolute;
-            z-index: 999;
-        }
-
-        .confetti .rotate {
-            animation: driftRotate 1s infinite both ease-in-out;
-            width: 100%;
-            height: 100%;
-        }
-
-        .confetti .askew {
-            width: 100%;
-            height: 100%;
-            animation: drift 1s infinite alternate both ease-in-out;
-        }
-
-        @keyframes drift {
-            0% {
-                transform: skewY(10deg) translate3d(-250%, 0, 0);
-            }
-            100% {
-                transform: skewY(-10deg) translate3d(250%, 0, 0);
-            }
-        }
-
-        @keyframes driftRotate {
-            0% {
-                transform: rotateX(0);
-            }
-            100% {
-                transform: rotateX(360deg);
-            }
-        }
-    </style>
+    /* Ghost Parts */
+    .ghost-head, .ghost-body { background-color: var(--ghost-white); }
+    .eye { background-color: var(--face-dark); }
+    .cheek { background-color: var(--face-pink); }
+    .star-element { animation: star-entrance var(--star-entrance-speed); }
+  </style>
 </head>
 <body>
-    <h1 class="show">Happy Birthday!</
+  <div class="scene-container stars-out" tabindex="1">
+    <div class="ghost-container">
+      <div class="ghost">
+        <div class="ghost-head">
+          <div class="ghost-face">
+            <div class="eyes-row">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+            </div>
+            <div class="mouth-row">
+              <div class="cheek left"></div>
+              <div class="mouth"><div class="mouth-top"></div><div class="mouth-bottom"></div></div>
+              <div class="cheek right"></div>
+            </div>
+          </div>
+        </div>
+        <div class="ghost-body"><div class="ghost-hand hand-left"></div><div class="ghost-hand hand-right"></div></div>
+      </div>
+      <div class="stars"><div class="star-element"></div></div>
+    </div>
+    <div class="shadow-container"><div class="shadow"></div><div class="shadow-bottom"></div></div>
+  </div>
+
+  <script>
+    class Ghost {
+      constructor(el) {
+        this.scene = el;
+        this.isEscaping = false;
+        this.ghost = el.querySelector('.ghost');
+        this.face = el.querySelector('.ghost-face');
+        this.eyes = el.querySelector('.eyes-row');
+        this.leftEye = this.eyes.querySelector('.left');
+        this.rightEye = this.eyes.querySelector('.right');
+        this.mouth = el.querySelector('.mouth');
+        this.shadow = el.querySelector('.shadow-container');
+        this.activityInterval = null;
+      }
+
+      blink() {
+        this.leftEye.classList.add('blink');
+        this.rightEye.classList.add('blink');
+        setTimeout(() => { this.leftEye.classList.remove('blink'); this.rightEye.classList.remove('blink'); }, 50);
+      }
+
+      wave() {
+        this.leftHand.classList.add('waving');
+        setTimeout(() => { this.leftHand.classList.remove('waving'); }, 500);
+      }
+
+      runAway() {
+        clearInterval(this.activityInterval);
+        if (!this.isEscaping) {
+          this.isEscaping = true;
+          this.scene.classList.add('run-away', 'move-stars-in');
+          setTimeout(() => { this.reset(); }, 500);
+        }
+      }
+
+      reset() { this.scene.classList.add('descend'); }
+      startActivity() { this.activityInterval = setInterval(() => { this.blink(); }, 7000); }
+      prepareEscape() {
+        this.scene.addEventListener('click', () => { this.runAway(); });
+        this.scene.addEventListener('mouseover', () => { this.runAway(); });
+      }
+    }
+
+    let ghost = new Ghost(document.querySelector('.scene-container'));
+    ghost.startActivity();
+    ghost.prepareEscape();
+  </script>
+</body>
+</html>
